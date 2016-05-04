@@ -1,6 +1,8 @@
 package com.example.recep.kpss2;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.PorterDuff;
@@ -10,13 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Random;
+
 
 public class Tarihekrani extends Activity {
 
     //Textview ve button IDleri
     TextView tv1;
     Button btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +125,6 @@ public class Tarihekrani extends Activity {
         //diğer clastan çekmeye çalışılıyor
 
 
-
-
         // btn8 e basınca btn10 ile hangisi eşşit ise yeşile boya
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +143,58 @@ public class Tarihekrani extends Activity {
             }
         });
 
+
+
+
+    //BURADAN
+        Cursor c = null;
+        SQLiteDatabase db;
+    btn9.setOnClickListener(new View.OnClickListener() {
+
+    public void onClick(View v)
+    {
+        if(c == null) {
+            c = db.rawQuery("select * from kpsssorularr", null);
+            c.moveToFirst();
+        }
+        //veriler temizleniyor galiba
+        tv1.setText("");
+        btn3.setText("");
+        btn4.setText("");
+        btn5.setText("");
+        btn6.setText("");
+        btn7.setText("");
+        btn10.setText("");
+
+        if(c!=null && c.getCount()>0 && !c.isAfterLast())
+        {
+            // veriler alınıyor galiba
+            String name = c.getString(c.getColumnIndex(1));
+            String surname = c.getString(2);
+            String surnamee = c.getString(3);
+            String surnameee = c.getString(4);
+            String surnameeee = c.getString(5);
+            String surnameeeee = c.getString(6);
+            String surnam = c.getString(7);
+
+           //görüntüleniyor galiba
+            tv1.setText(name);
+            btn3.setText(surname);
+            btn4.setText(surnamee);
+            btn5.setText(surnameee);
+            btn6.setText(surnameeee);
+            btn7.setText(surnameeeee);
+            btn10.setText(surnam);
+
+            c.moveToNext();
+        }
     }
-    
-   
+});
+        //BURAYA kadar
+
+
+    }
+
+
+
 }
