@@ -147,8 +147,8 @@ public class Tarihekrani extends Activity {
 
 
     //BURADAN
-        Cursor c = null;
-        SQLiteDatabase db;
+    final Cursor c = null;
+    final SQLiteDatabase db;
     btn9.setOnClickListener(new View.OnClickListener() {
 
     public void onClick(View v)
